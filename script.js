@@ -13,7 +13,7 @@ const User = (function () {
 
 const GameBoard = (function (){
     const board = ["", "", "", "", "", "", "", "", ""];
-    const displayBoard = () => console.log(board);
+    const displayBoard = () => DOMController.displayMarks(board);
     const setMove = (index, mark) => {
         board[index] = mark;
     };
@@ -63,4 +63,16 @@ const EventListener = (function () {
     return {selectCell, };
 })();
 
+const DOMController = (function () {
+    const displayMarks = (board) => {
+        let cell = document.querySelectorAll(".cell");
+        cell.forEach((e, idx) => {
+            e.innerText = board[idx];
+        });
+    };
+
+    return {displayMarks, }
+})();
+
 EventListener.selectCell();
+GameBoard.displayBoard();
