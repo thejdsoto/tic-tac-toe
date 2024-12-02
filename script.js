@@ -50,18 +50,17 @@ const GameBoard = (function (){
     return {displayBoard, setMove, setWinner, };
 })();
 
-let player1 = User.setPlayer("David", "X");
-let player2 = User.setPlayer("Ruffa", "O");
-console.log(player1.getName());
-console.log(player1.getMark());
-console.log(player2.getName());
-console.log(player2.getMark());
-GameBoard.displayBoard();
-player1.playerSetMove(0);
-player2.playerSetMove(1);
-GameBoard.displayBoard();
-player1.playerSetMove(6);
-player2.playerSetMove(7);
-GameBoard.displayBoard();
-player1.playerSetMove(3);
-GameBoard.setWinner();
+const EventListener = (function () {
+    const selectCell = () => {
+        let cell = document.querySelectorAll(".cell");
+        cell.forEach((e) => {
+            e.addEventListener("click", () => {
+                console.log(`cell is clicked`);
+            });
+        });
+    }
+
+    return {selectCell, };
+})();
+
+EventListener.selectCell();
