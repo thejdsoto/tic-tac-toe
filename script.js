@@ -53,11 +53,20 @@ const GameBoard = (function (){
 })();
 
 const EventListener = (function () {
-    const selectCell = () => {
+    const selectCell = (player1, player2) => {
+        let isPlayer1 = true;
         let cell = document.querySelectorAll(".cell");
         cell.forEach((e) => {
             e.addEventListener("click", () => {
-                console.log(`cell is clicked`);
+                if (isPlayer1) {
+                    e.innerText = "X";
+                    isPlayer1 = false;
+                    GameBoard.setMove(e.dataset.index, player1.getMark());
+                } else {
+                    e.innerText = "O";
+                    isPlayer1 = true;
+                    GameBoard.setMove(e.dataset.index, player2.getMark());
+                }
             });
         });
     }
@@ -80,5 +89,5 @@ const DOMController = (function () {
 let player1 = User.setPlayer("David", "X");
 let player2 = User.setPlayer("Ruffa", "O");
 
-EventListener.selectCell();
+EventListener.selectCell(player1, player2);
 GameBoard.displayBoard();
