@@ -16,6 +16,8 @@ const GameBoard = (function (){
     const displayBoard = () => DOMController.displayMarks(board);
     const setMove = (index, mark) => {
         board[index] = mark;
+        GameBoard.displayBoard();
+        GameBoard.setWinner();
     };
     const setWinner = () => {
         let winningCombination = ["036", "147", "678", "012", "345", "258", "048", "246"];
@@ -73,6 +75,10 @@ const DOMController = (function () {
 
     return {displayMarks, }
 })();
+
+// For debugging purposes only - to be deleted after
+let player1 = User.setPlayer("David", "X");
+let player2 = User.setPlayer("Ruffa", "O");
 
 EventListener.selectCell();
 GameBoard.displayBoard();
