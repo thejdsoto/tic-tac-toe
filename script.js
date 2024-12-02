@@ -19,7 +19,7 @@ const GameBoard = (function (){
         GameBoard.displayBoard();
         GameBoard.setWinner();
     };
-    const setWinner = () => {
+    const setWinner = (moves) => {
         let winningCombination = ["036", "147", "678", "012", "345", "258", "048", "246"];
         let oWin = 0;
         let xWin = 0;
@@ -41,6 +41,9 @@ const GameBoard = (function (){
             } else if (xWin === 3) {
                 console.log(`"X" wins!`);
                 return;
+            } else if (moves === 9 && oWin < 3 && xWin < 3) {
+                console.log(`draw!`);
+                return;
             } else {
                 oWin = 0;
                 xWin = 0;
@@ -54,6 +57,7 @@ const GameBoard = (function (){
 
 const EventListener = (function () {
     const selectCell = (player1, player2) => {
+        let moves = 0;
         let isPlayer1 = true;
         let cell = document.querySelectorAll(".cell");
         cell.forEach((e) => {
@@ -61,16 +65,21 @@ const EventListener = (function () {
                 if (isPlayer1) {
                     e.innerText = "X";
                     isPlayer1 = false;
+                    moves++;
                     GameBoard.setMove(e.dataset.index, player1.getMark());
                 } else {
                     e.innerText = "O";
                     isPlayer1 = true;
+                    moves++;
                     GameBoard.setMove(e.dataset.index, player2.getMark());
+                }
+
+                if (moves === 9) {
+                    GameBoard.setWinner(moves);
                 }
             });
         });
     }
-
     return {selectCell, };
 })();
 
