@@ -86,7 +86,7 @@ const EventListener = (function () {
     const loadDialog = () => {
         const dialog = document.querySelector("dialog");
         window.addEventListener("load", () => {
-        dialog.show();
+        dialog.showModal();
         EventListener.getPlayerNames();
         });
     }
@@ -149,3 +149,7 @@ const Game = (function(){
 })();
 
 EventListener.loadDialog();
+
+// Things to do:
+// 1. Restart button functionality
+// 2. Overlapping marks handling
