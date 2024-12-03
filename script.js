@@ -13,13 +13,12 @@ const User = (function () {
 })();
 
 const GameBoard = (function (){
-    const board = ["", "", "", "", "", "", "", "", ""];
+    let board = ["", "", "", "", "", "", "", "", ""];
     const displayBoard = () => DOMController.displayMarks(board);
     const setMove = (index, mark) => {
         if (board[index] !== "X" && board[index] !== "O") {
             board[index] = mark;
             GameBoard.displayBoard();
-            GameBoard.setWinner();
         }
     };
     const setWinner = (moves, player1, player2) => {
@@ -44,13 +43,17 @@ const GameBoard = (function (){
             }
         }
     };
+    const resetBoard = () => {
+        board = ["", "", "", "", "", "", "", "", ""];
+        DOMController.resetDisplay();
+    }
 
-    return {displayBoard, setMove, setWinner, };
+    return {displayBoard, setMove, setWinner, resetBoard, };
 })();
 
 const EventListener = (function () {
+    let moves = 0;
     const selectCell = (player1, player2) => {
-        let moves = 0;
         let isPlayer1 = true;
         let cell = document.querySelectorAll(".cell");
         cell.forEach((e) => {
@@ -71,15 +74,14 @@ const EventListener = (function () {
             });
         });
     }
-
     const loadDialog = () => {
         const dialog = document.querySelector("dialog");
         window.addEventListener("load", () => {
         dialog.showModal();
         EventListener.getPlayerNames();
+        EventListener.resetBoard();
         });
     }
-
     const getPlayerNames = () => {
         let player1 = document.querySelector(".player-one-input");
         let player2 = document.querySelector(".player-two-input");
@@ -93,8 +95,16 @@ const EventListener = (function () {
             e.preventDefault();
         });
     }
+    const resetBoard = () => {
+        const restartBtn = document.querySelector(".restart");
 
-    return {selectCell, loadDialog, getPlayerNames, };
+        restartBtn.addEventListener("click", () => {
+            moves = 0;
+            GameBoard.resetBoard();
+        });
+    };
+
+    return {selectCell, loadDialog, getPlayerNames, resetBoard, };
 })();
 
 const DOMController = (function () {
@@ -104,7 +114,6 @@ const DOMController = (function () {
             e.innerText = board[idx];
         });
     };
-
     const displayPlayerName = (player1, player2) => {
         let playerOneDisplay = document.querySelector("h2.player-one");
         let playerTwoDisplay = document.querySelector("h2.player-two");
@@ -112,20 +121,24 @@ const DOMController = (function () {
         playerOneDisplay.innerText = `X Player: ${player1}`;
         playerTwoDisplay.innerText = `O Player: ${player2}`;
     };
-
     const displayWinner = (userName) => {
         let resultDisplay = document.querySelector("h2.result");
 
         resultDisplay.innerText = `Result: ${userName} wins!`;
     };
-
     const displayDraw = () => {
         let resultDisplay = document.querySelector("h2.result");
 
         resultDisplay.innerText = `Result: DRAW!`;
     };
+    const resetDisplay = () => {
+        let cell = document.querySelectorAll(".cell");
+        cell.forEach((e) => {
+            e.innerText = '';
+        });
+    }
 
-    return {displayMarks, displayPlayerName, displayWinner, displayDraw, }
+    return {displayMarks, displayPlayerName, displayWinner, displayDraw, resetDisplay, }
 })();
 
 const Game = (function(){
@@ -136,11 +149,7 @@ const Game = (function(){
         GameBoard.displayBoard();
     }
 
-    const restart = () => {
-
-    }
-
-    return {initialize, restart, }
+    return {initialize, }
 })();
 
 EventListener.loadDialog();
