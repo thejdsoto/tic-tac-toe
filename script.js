@@ -16,9 +16,11 @@ const GameBoard = (function (){
     const board = ["", "", "", "", "", "", "", "", ""];
     const displayBoard = () => DOMController.displayMarks(board);
     const setMove = (index, mark) => {
-        board[index] = mark;
-        GameBoard.displayBoard();
-        GameBoard.setWinner();
+        if (board[index] !== "X" && board[index] !== "O") {
+            board[index] = mark;
+            GameBoard.displayBoard();
+            GameBoard.setWinner();
+        }
     };
     const setWinner = (moves, player1, player2) => {
         let winningCombination = ["036", "147", "678", "012", "345", "258", "048", "246"];
