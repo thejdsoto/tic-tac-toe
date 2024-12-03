@@ -24,8 +24,6 @@ const GameBoard = (function (){
     };
     const setWinner = (moves, player1, player2) => {
         let winningCombination = ["036", "147", "678", "012", "345", "258", "048", "246"];
-        let oWin = 0;
-        let xWin = 0;
         for (let i=0; i<winningCombination.length; i++) {
             let element = winningCombination[i];
             for (let j=0; j<element.length-2; j++) {
@@ -149,4 +147,3 @@ EventListener.loadDialog();
 
 // Things to do:
 // 1. Restart button functionality
-// 2. Overlapping marks handling
