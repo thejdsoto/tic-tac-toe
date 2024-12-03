@@ -85,9 +85,25 @@ const EventListener = (function () {
         const dialog = document.querySelector("dialog");
         window.addEventListener("load", () => {
         dialog.show();
+        EventListener.getPlayerNames();
         });
     }
-    return {selectCell, loadDialog, };
+
+    const getPlayerNames = () => {
+        let player1 = document.querySelector(".player-one-input");
+        let player2 = document.querySelector(".player-two-input");
+        let submitBtn = document.querySelector("form + button");
+        const dialog = document.querySelector("dialog");
+
+        submitBtn.addEventListener("click", (e) => {
+            Game.initialize(player1.value, player2.value);
+            DOMController.displayPlayerName(player1.value, player2.value);
+            dialog.close();
+            e.preventDefault();
+        });
+    }
+
+    return {selectCell, loadDialog, getPlayerNames, };
 })();
 
 const DOMController = (function () {
@@ -98,13 +114,36 @@ const DOMController = (function () {
         });
     };
 
-    return {displayMarks, }
+    const displayPlayerName = (player1, player2) => {
+        let playerOneDisplay = document.querySelector("h2.player-one");
+        let playerTwoDisplay = document.querySelector("h2.player-two");
+
+        playerOneDisplay.innerText = `X Player: ${player1}`;
+        playerTwoDisplay.innerText = `O Player: ${player2}`;
+    };
+
+    return {displayMarks, displayPlayerName, }
+})();
+
+const Game = (function(){
+    const initialize = (user1, user2) => {
+        let player1 = User.setPlayer(user1, "X");
+        let player2 = User.setPlayer(user2, "O");
+        EventListener.selectCell(player1, player2);
+        GameBoard.displayBoard();
+    }
+
+    const restart = () => {
+
+    }
+
+    return {initialize, restart, }
 })();
 
 // For debugging purposes only - to be deleted after
-let player1 = User.setPlayer("David", "X");
-let player2 = User.setPlayer("Ruffa", "O");
+// let player1 = User.setPlayer("David", "X");
+// let player2 = User.setPlayer("Ruffa", "O");
 
 EventListener.loadDialog();
-EventListener.selectCell(player1, player2);
-GameBoard.displayBoard();
+// EventListener.selectCell(player1, player2);
+// GameBoard.displayBoard();
