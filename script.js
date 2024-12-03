@@ -28,26 +28,21 @@ const GameBoard = (function (){
         let xWin = 0;
         for (let i=0; i<winningCombination.length; i++) {
             let element = winningCombination[i];
-            for (let j=0; j<element.length; j++) {
-                let playerMark = board[parseInt(element[j])];
+            for (let j=0; j<element.length-2; j++) {
+                let playerMarkOne = board[parseInt(element[j])];
+                let playerMarkTwo = board[parseInt(element[j+1])];
+                let playerMarkThree = board[parseInt(element[j+2])];
+                let playerOneWins = (moves <= 9) && (playerMarkOne === "X") && (playerMarkOne === playerMarkTwo) && (playerMarkTwo === playerMarkThree);
+                let playerTwoWins = (moves <= 9) && (playerMarkOne === "O") && (playerMarkOne === playerMarkTwo) && (playerMarkTwo === playerMarkThree);
+                let isDraw = (moves === 9) && !playerOneWins && !playerTwoWins;
 
-                if (playerMark === "O") {
-                    oWin++;
-                } else if (playerMark === "X") {
-                    xWin++;
+                if (playerOneWins) {
+                    DOMController.displayWinner(player1);
+                } else if (playerTwoWins) {
+                    DOMController.displayWinner(player2);
+                } else if (isDraw) {
+                    DOMController.displayDraw();
                 }
-            }
-
-            if (oWin === 3) {
-                DOMController.displayWinner(player2);
-            } else if (xWin === 3) {
-                DOMController.displayWinner(player1);
-            } else if (moves === 9 && oWin < 3 && xWin < 3) {
-                return "draw";
-            } else {
-                oWin = 0;
-                xWin = 0;
-                GameBoard.displayBoard();
             }
         }
     };
@@ -73,12 +68,6 @@ const EventListener = (function () {
                     isPlayer1 = true;
                     moves++;
                     GameBoard.setMove(e.dataset.index, player2.getMark(), moves);
-                    GameBoard.setWinner(moves, player1.getName(), player2.getName());
-                }
-
-                if (moves === 9) {
-                    console.log(player1.getName());
-                    console.log(player2.getName());
                     GameBoard.setWinner(moves, player1.getName(), player2.getName());
                 }
             });
@@ -132,7 +121,13 @@ const DOMController = (function () {
         resultDisplay.innerText = `Result: ${userName} wins!`;
     };
 
-    return {displayMarks, displayPlayerName, displayWinner, }
+    const displayDraw = () => {
+        let resultDisplay = document.querySelector("h2.result");
+
+        resultDisplay.innerText = `Result: DRAW!`;
+    };
+
+    return {displayMarks, displayPlayerName, displayWinner, displayDraw, }
 })();
 
 const Game = (function(){
