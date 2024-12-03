@@ -58,13 +58,13 @@ const EventListener = (function () {
         let cell = document.querySelectorAll(".cell");
         cell.forEach((e) => {
             e.addEventListener("click", () => {
-                if (isPlayer1) {
+                if (isPlayer1 && e.innerText !== "X" && e.innerText !== "O") {
                     e.innerText = "X";
                     isPlayer1 = false;
                     moves++;
                     GameBoard.setMove(e.dataset.index, player1.getMark(), moves);
                     GameBoard.setWinner(moves, player1.getName(), player2.getName());
-                } else {
+                } else if (!isPlayer1 && e.innerText !== "X" && e.innerText !== "O") {
                     e.innerText = "O";
                     isPlayer1 = true;
                     moves++;
