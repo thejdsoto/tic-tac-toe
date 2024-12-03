@@ -80,7 +80,14 @@ const EventListener = (function () {
             });
         });
     }
-    return {selectCell, };
+
+    const loadDialog = () => {
+        const dialog = document.querySelector("dialog");
+        window.addEventListener("load", () => {
+        dialog.show();
+        });
+    }
+    return {selectCell, loadDialog, };
 })();
 
 const DOMController = (function () {
@@ -98,5 +105,6 @@ const DOMController = (function () {
 let player1 = User.setPlayer("David", "X");
 let player2 = User.setPlayer("Ruffa", "O");
 
+EventListener.loadDialog();
 EventListener.selectCell(player1, player2);
 GameBoard.displayBoard();
