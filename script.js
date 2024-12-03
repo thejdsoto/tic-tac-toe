@@ -48,7 +48,7 @@ const GameBoard = (function (){
         DOMController.resetDisplay();
     }
 
-    return {displayBoard, setMove, setWinner, resetBoard, };
+    return {displayBoard, setMove, setWinner, resetBoard,  };
 })();
 
 const EventListener = (function () {
@@ -59,13 +59,11 @@ const EventListener = (function () {
         cell.forEach((e) => {
             e.addEventListener("click", () => {
                 if (isPlayer1 && e.innerText !== "X" && e.innerText !== "O") {
-                    e.innerText = "X";
                     isPlayer1 = false;
                     moves++;
                     GameBoard.setMove(e.dataset.index, player1.getMark(), moves);
                     GameBoard.setWinner(moves, player1.getName(), player2.getName());
                 } else if (!isPlayer1 && e.innerText !== "X" && e.innerText !== "O") {
-                    e.innerText = "O";
                     isPlayer1 = true;
                     moves++;
                     GameBoard.setMove(e.dataset.index, player2.getMark(), moves);
@@ -136,6 +134,9 @@ const DOMController = (function () {
         cell.forEach((e) => {
             e.innerText = '';
         });
+        let resultDisplay = document.querySelector("h2.result");
+
+        resultDisplay.innerText = `Result:`;
     }
 
     return {displayMarks, displayPlayerName, displayWinner, displayDraw, resetDisplay, }
