@@ -8,17 +8,53 @@
     <title>Tic Tac Toe</title>
 </head>
 <body>
+    <dialog>
+        <p>Player 1 plays "X"</p>
+        <p>Player 2 plays "O"</p>
+        <form>
+            <label for="player-one">Player name for player 1 (X):</label>
+            <input type="text" for="player-one">
+
+            <label for="player-two">Player name for player 2 (O):</label>
+            <input type="text" for="player-two">
+            <button type="submit">Submit</button>
+        </form>
+    </dialog>
     <h1>Tic-Tac-Toe</h1>
     <div class="container">
-        <div class="cell" data-index="0"></div>
-        <div class="cell" data-index="1"></div>
-        <div class="cell" data-index="2"></div>
-        <div class="cell" data-index="3"></div>
-        <div class="cell" data-index="4"></div>
-        <div class="cell" data-index="5"></div>
-        <div class="cell" data-index="6"></div>
-        <div class="cell" data-index="7"></div>
-        <div class="cell" data-index="8"></div>
+        <div class="board">
+            <div class="cell" data-index="0"></div>
+            <div class="cell" data-index="1"></div>
+            <div class="cell" data-index="2"></div>
+            <div class="cell" data-index="3"></div>
+            <div class="cell" data-index="4"></div>
+            <div class="cell" data-index="5"></div>
+            <div class="cell" data-index="6"></div>
+            <div class="cell" data-index="7"></div>
+            <div class="cell" data-index="8"></div>
+        </div>
+        <div class="info">
+            <div class="instructions">
+                <h2>How to play tic-tac-toe:</h2>
+                <ol>
+                    <li>Be the first player to align three of your marks (X or O) in a row, column, or diagonal to win.</li>
+                    <li>Player X always goes first, followed by Player O.</li>
+                    <li>Take turns clicking on a square to place your mark.</li>
+                    <li>Once a square is marked, it cannot be changed.</li>
+                    <li>Align three of your marks (X or O) horizontally, vertically, or diagonally to win.</li>
+                    <li>If all squares are filled and no player has three marks in a row, the game ends in a tie.</li>
+                    <li>After a win or tie, click the "Restart" button to play again.</li>
+                </ol>
+                <p>Good luck and have fun!</p>
+            </div>
+            <div class="game-menu">
+                <h2>X Player:</h2>
+                <h2>O Player:</h2>
+                <h2>Result:</h2>
+                <button class="restart">Restart</button>
+            </div>
+        </div>
     </div>
+
 </body>
 </html>

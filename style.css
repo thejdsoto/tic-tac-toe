@@ -5,13 +5,22 @@ html, body {
     box-sizing: border-box;
 }
 
+body h1 {
+    text-align: center;
+}
 .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.board {
     display: grid;
     grid-template-columns: repeat(3, 250px);
     grid-template-rows: repeat(3, 250px);
 }
 
-    .container .cell {
+    .board .cell {
         border: 1px solid black;
         text-align: center;
         align-content: center;
